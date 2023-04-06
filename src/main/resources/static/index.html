@@ -171,6 +171,7 @@
     }
 </style>
 <body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <!-- entry -->
 <div class="chat_commento">
     <!-- top -->
@@ -183,31 +184,31 @@
     <div class="chat_middle" id="chat_middle_item">
         <!-- 左边 -->
         <div class="chat_left clearfix">
-            <div class="chat_left_item_1 ">用户</div>
+            <div class="chat_left_item_1 ">客服</div>
             <div class="chat_left_item_2">
                 <div class="chat_time">18:57</div>
                 <div class="chat_left_content">
-                    今天吃点啥？
+                    你好，有什么需要帮助的么？
                 </div>
             </div>
         </div>
         <!--右边 -->
         <div class="chat_right">
-            <div class="chat_right_item_1 ">客服</div>
+            <div class="chat_right_item_1 ">用户</div>
             <div class="chat_right_item_2 ">
                 <div class="chat_right_time">18:59</div>
                 <div class="chat_right_content">
-                    八合里周年庆店
+                    我想咨询一下问题。
                 </div>
             </div>
         </div>
         <!-- l_2 -->
         <div class="chat_left clearfix">
-            <div class="chat_left_item_1 ">用户</div>
+            <div class="chat_left_item_1 ">客服</div>
             <div class="chat_left_item_2">
                 <div class="chat_time">18:57</div>
                 <div class="chat_left_content">
-                    排个号
+                    好的，请问您要咨询什么呢？
                 </div>
             </div>
         </div>
@@ -226,14 +227,29 @@
     var send_message=document.getElementById("chat_middle_item");
     var domBtm=document.getElementById("button");
     // 发送内容
+
     var message=document.getElementById("chat_context_item");
     domBtm.addEventListener("click",function(){
         var str=message.value;
+        var msg = $("#chat_context_item").val();
+        $.ajax({
+            type:"GET",
+            url:"/demo"+"?name="+msg,
+            contentType: 'application/json',
+            success:function (data) {
+                alert(data);
+            },
+            error:function (){
+                console.log("error")
+                alert("error");
+            }
+        });
+
         var date=new Date();
         var hour=date.getHours();
         var mm=date.getMinutes();
         var time=hour+':'+mm;
-        var ans='<div class="chat_right_item_1 clearfix">热巴</div>'+
+        var ans='<div class="chat_right_item_1 clearfix">用户</div>'+
             '<div class="chat_right_item_2">'+
             '<div class="chat_right_time clearfix">'+time+'</div>'+
             '<div class="chat_right_content clearfix">'+str+'</div>'

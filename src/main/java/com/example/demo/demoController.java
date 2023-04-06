@@ -1,15 +1,16 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class demoController {
 
-    @GetMapping("/demo")
-    public String demo(){
-        System.out.println("OK");
-        return "OK";
+
+    @RequestMapping(value = "/demo", method = RequestMethod.GET)
+    @ResponseBody
+    public String demo(@RequestParam String name){
+        System.out.println(name);
+        return name;
     }
 }
