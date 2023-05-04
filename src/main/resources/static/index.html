@@ -223,27 +223,31 @@
     </div>
 </div>
 <script>
+    // webSocket通讯部分
+    const socket = new WebSocket('ws://localhost:9999/websocket');
+    socket.onopen = function(event) {
+        console.log('WebSocket connected');
+        // socket.send("try");
+    };
+    socket.onclose = function (){
+        console.log('WebSocket closed');
+    };
+    socket.onmessage = function(event) {
+        const message = event.data;
+        console.log(message);
+    };
+
     // 成功发送
     var send_message=document.getElementById("chat_middle_item");
     var domBtm=document.getElementById("button");
     // 发送内容
-
     var message=document.getElementById("chat_context_item");
     domBtm.addEventListener("click",function(){
         var str=message.value;
+        // 前端像后端发送请求
         var msg = $("#chat_context_item").val();
-        $.ajax({
-            type:"GET",
-            url:"/demo"+"?name="+msg,
-            contentType: 'application/json',
-            success:function (data) {
-                alert(data);
-            },
-            error:function (){
-                console.log("error")
-                alert("error");
-            }
-        });
+        // socket.send(msg);
+        socket.send("try");
 
         var date=new Date();
         var hour=date.getHours();
